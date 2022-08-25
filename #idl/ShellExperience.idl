@@ -59,6 +59,12 @@ namespace Windows.Internal.Shell.Experience
 		Create = 0x2,
 		Capture = 0x3
 	};
+	
+	enum HotKeyKind
+	{
+  		ToggleVisiblity = 0x0,
+  		SetForeground = 0x1
+	};
 
 	[version(0x00000001)]
 	[uuid("2e8fcb18-a0ee-41ad-8ef8-77fb3a370ca5")]
@@ -71,16 +77,16 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("fd8022e5-1099-53f9-b49a-b39bf3f15861")]
 	interface IBaseExperienceManager
 	{
-        Boolean IsVisible { get; set; };
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.IBaseExperienceManager, Windows.Internal.Shell.Experience.IVisibilityChangedEventArgs> VisibilityChanged;
-        void SetVisibilityWithoutAnimations(Boolean a);
+        	Boolean IsVisible { get; set; };
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.IBaseExperienceManager, Windows.Internal.Shell.Experience.IVisibilityChangedEventArgs> VisibilityChanged;
+        	void SetVisibilityWithoutAnimations(Boolean a);
 	}
 	
 	[version(0x00000001)]
 	[uuid("df65db57-d504-456e-8bd7-004ce308d8d9")]
 	interface IActionCenterExperienceManager
 	{
-		void Unknown(UInt32 val); //It should be an enum, but it works only if it is set to 0 (it opens the ActionCenterMeme)
+		void HotKeyInvoked(HotKeyKind kind); //It should be an enum, but it works only if it is set to 0 (it opens the ActionCenterMeme)
 	}
 	
 	[version(0x00000001)]
@@ -110,7 +116,7 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("8b6ebc6f-30f2-401b-a050-9f0b7f35f35d")]
 	interface IToastCenterExperienceManager
 	{
-		void Unknown(UInt32 val); //Enum
+		void HotKeyInvoked(HotKeyKind kind); //Enum
 	}
 	
 	[version(0x00000001)]
@@ -124,39 +130,39 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("3b810852-511f-4404-89ae-347bc2e8b561")]
 	interface ICortanaExperienceManager
 	{
-        void Prelaunch(Boolean a);
-        void Show(String a, CortanaAppTransitionType cortanaAppTransitionType);
-        void SetPositioningAnchorRect(Windows.Foundation.Rect a, Windows.Foundation.Rect b);
-        void ShowWithStart(Boolean a);
-        void WorkAreaMayHaveChanged();
-        void Hide();
-        void MinimizeToBoxMode();
-        void TakeKeyboardFocus();
-        void PrepareForAppTransition(CortanaAppTransitionType cortanaAppTransitionType);
-        Boolean CanTransitionFromStart();
-        void EnsureForegroundRights();
-        void PearlRectMayHaveChanged();
-        void Uncloak();
-        Boolean SuggestionsShowing { get; };
-        Boolean IsExplicitDismissEnabled { get; };
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Windows.Internal.Shell.Experience.ICortanaShownEventArgs> Shown;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> Hidden;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> Destroyed;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> SuggestionsShown;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> SuggestionsHidden;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> SetForegroundFailed;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Windows.Internal.Shell.Experience.IFocusNavigateEventArgs> FocusNavigate;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> StartAndCortanaDismissRequested;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> AppRequestedDismiss;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> AppRequestedTransition;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> AppTransitionCompleted;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, int> LaunchResult;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> DeviceLocked;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> DeviceUnlocked;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Windows.Foundation.Rect> NotifyRelaunch;
-        UInt64 GetWindowHandle();
-        Boolean LockCurtainShowing { get; };
-        void NotifyUIATreesUnlinked();
+        	void Prelaunch(Boolean a);
+        	void Show(String a, CortanaAppTransitionType cortanaAppTransitionType);
+        	void SetPositioningAnchorRect(Windows.Foundation.Rect a, Windows.Foundation.Rect b);
+        	void ShowWithStart(Boolean a);
+        	void WorkAreaMayHaveChanged();
+        	void Hide();
+        	void MinimizeToBoxMode();
+        	void TakeKeyboardFocus();
+        	void PrepareForAppTransition(CortanaAppTransitionType cortanaAppTransitionType);
+        	Boolean CanTransitionFromStart();
+        	void EnsureForegroundRights();
+        	void PearlRectMayHaveChanged();
+        	void Uncloak();
+        	Boolean SuggestionsShowing { get; };
+        	Boolean IsExplicitDismissEnabled { get; };
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Windows.Internal.Shell.Experience.ICortanaShownEventArgs> Shown;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> Hidden;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> Destroyed;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> SuggestionsShown;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> SuggestionsHidden;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> SetForegroundFailed;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Windows.Internal.Shell.Experience.IFocusNavigateEventArgs> FocusNavigate;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> StartAndCortanaDismissRequested;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> AppRequestedDismiss;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> AppRequestedTransition;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> AppTransitionCompleted;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, int> LaunchResult;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> DeviceLocked;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Object> DeviceUnlocked;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.CortanaExperienceManager, Windows.Foundation.Rect> NotifyRelaunch;
+        	UInt64 GetWindowHandle();
+        	Boolean LockCurtainShowing { get; };
+        	void NotifyUIATreesUnlinked();
 	}
 	
 	[version(0x00000001)]
@@ -189,8 +195,8 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("075fd233-0985-4b7d-a756-3293380d1b4c")]
 	interface ITaskContinuityActivitiesExperienceManager
 	{
-        void Show();
-        void Hide();
+        	void Show();
+        	void Hide();
 	}
 	
 	[version(0x00000001)]
@@ -203,28 +209,28 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("c2d211a1-a6d4-49b5-9704-d74cb4dff1ee")]
 	interface IStartExperienceManager
 	{
-        void Prelaunch(Boolean a);
-        void Show(Boolean a, Boolean b, UInt32 c);
-        UInt32 Hide();
-        void DimStart();
-        void UnDimStart();
-        void TakeKeyboardFocus(FocusNavigateDirection focusNavigateDirection);
-        Windows.Foundation.Size GetStartSize();
-        void WorkAreaMayHaveChanged();
-        void PlayTransitionToCortana();
-        Boolean GetIsFullScreen();
-        void BringToForeground();
-        Boolean IsWindowFullyVisible();
-        void Uncloak();
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> Shown;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> Hidden;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> Destroyed;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> NotifyFocus;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> DismissRequested;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> ExitTransitionToCortanaCompleted;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> SetForegroundFailed;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, int> LaunchResult;
-        UInt64 GetWindowHandle();
+        	void Prelaunch(Boolean a);
+        	void Show(Boolean a, Boolean b, UInt32 c);
+        	UInt32 Hide();
+        	void DimStart();
+        	void UnDimStart();
+        	void TakeKeyboardFocus(FocusNavigateDirection focusNavigateDirection);
+        	Windows.Foundation.Size GetStartSize();
+        	void WorkAreaMayHaveChanged();
+        	void PlayTransitionToCortana();
+        	Boolean GetIsFullScreen();
+        	void BringToForeground();
+        	Boolean IsWindowFullyVisible();
+        	void Uncloak();
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> Shown;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> Hidden;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> Destroyed;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> NotifyFocus;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> DismissRequested;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> ExitTransitionToCortanaCompleted;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, Object> SetForegroundFailed;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.StartExperienceManager, int> LaunchResult;
+		UInt64 GetWindowHandle();
 	}
 	
 	[version(0x00000001)]
@@ -237,8 +243,8 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("8667db0d-6960-465f-b9a4-c461863efa91")]
 	interface IShoulderTapExperienceManager
 	{
-        void ShoulderTap(String a, String b, String c, String d, Int32 e, Int32 f, Int32 g, String h, String i, String j);
-        void FocusHotkeyInvoked();
+        	void ShoulderTap(String a, String b, String c, String d, Int32 e, Int32 f, Int32 g, String h, String i, String j);
+        	void FocusHotkeyInvoked();
 	}
 	
 	[version(0x00000001)]
@@ -251,11 +257,11 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("95fc070d-cc20-44e5-8c0d-75ed8f7100b0")]
 	interface IJumpViewExperienceManager
 	{
-        void Show(String json);
-        void Dismiss();
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.JumpViewExperienceManager, Windows.Internal.Shell.Experience.JumpViewExperienceEventArgs> Shown;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.JumpViewExperienceManager, Windows.Internal.Shell.Experience.JumpViewExperienceEventArgs> Hidden;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.JumpViewExperienceManager, Windows.Internal.Shell.Experience.JumpViewExperienceEventArgs> Cancelled;
+        	void Show(String json);
+        	void Dismiss();
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.JumpViewExperienceManager, Windows.Internal.Shell.Experience.JumpViewExperienceEventArgs> Shown;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.JumpViewExperienceManager, Windows.Internal.Shell.Experience.JumpViewExperienceEventArgs> Hidden;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.JumpViewExperienceManager, Windows.Internal.Shell.Experience.JumpViewExperienceEventArgs> Cancelled;
 	}
 	
 	[version(0x00000001)]
@@ -268,9 +274,9 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("7fec38c1-a520-4797-848f-66efa8bd3502")]
 	interface IQuickConnectExperienceManager
 	{
-        void ShowContactCard(Guid a, UInt64 hwndAsUINT64, Windows.ApplicationModel.Contacts.Contact contact, Windows.Foundation.Rect invocationRect, enum Windows.UI.Popups.Placement preferredPlacement, Windows.ApplicationModel.Contacts.ContactCardOptions contactCardOptions, Single userLogicalDpi, Boolean isDelayloadMode);
-        void PopulateDelayLoadedContactCard(Guid a, Windows.ApplicationModel.Contacts.Contact contact);
-        void ExitContactCard();
+        	void ShowContactCard(Guid a, UInt64 hwndAsUINT64, Windows.ApplicationModel.Contacts.Contact contact, Windows.Foundation.Rect invocationRect, enum Windows.UI.Popups.Placement preferredPlacement, Windows.ApplicationModel.Contacts.ContactCardOptions contactCardOptions, Single userLogicalDpi, Boolean isDelayloadMode);
+        	void PopulateDelayLoadedContactCard(Guid a, Windows.ApplicationModel.Contacts.Contact contact);
+        	void ExitContactCard();
 	}
 	
 	[version(0x00000001)]
@@ -283,10 +289,10 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("17c4ec91-62df-486d-aa0d-6a11c725e414")]
 	interface IVirtualTouchpadExperienceManager
 	{
-        void Show(VirtualTouchpadPosition virtualTouchpadPosition, Windows.Foundation.Rect b);
-        void Hide();
-        Boolean IsVisible { get; };
-        Boolean AreExperienceViewAndCursorOnTheSameMonitor { get; };
+        	void Show(VirtualTouchpadPosition virtualTouchpadPosition, Windows.Foundation.Rect b);
+        	void Hide();
+        	Boolean IsVisible { get; };
+        	Boolean AreExperienceViewAndCursorOnTheSameMonitor { get; };
 	}
 	
 	[version(0x00000001)]
@@ -299,8 +305,8 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("93acf1bc-b1c9-423a-9fa5-d80c0935ddee")]
 	interface IScreenClippingExperienceManager
 	{
-        void LaunchOrToggle(ScreenClipInvocationType screenClipInvocationType);
-        Object GetScreenClippingBrokerAsIInspectable();
+        	void LaunchOrToggle(ScreenClipInvocationType screenClipInvocationType);
+        	Object GetScreenClippingBrokerAsIInspectable();
 	}
 	
 	[version(0x00000001)]
@@ -313,7 +319,7 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("f7e42d9f-f76a-4f44-a458-6ecbdd76d2b9")]
 	interface IInsightsExperienceManager
 	{
-        void Launch();
+        	void Launch();
 	}
 	
 	[version(0x00000001)]
@@ -326,9 +332,9 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("1b7781cd-1b97-4728-8b6e-67a7e55cc53c")]
 	interface IPeopleBarFlyoutExperienceManager
 	{
-        void ShowFlyout(Windows.Foundation.Point positionPoint);
-        void HideFlyout();
-        Boolean IsFlyoutOpen();
+        	void ShowFlyout(Windows.Foundation.Point positionPoint);
+        	void HideFlyout();
+        	Boolean IsFlyoutOpen();
 	}
 	
 	[version(0x00000001)]
@@ -341,8 +347,8 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("ab65b025-ff88-470a-9513-b62bcd7ce879")]
 	interface IPeopleBarJumpViewExperienceManager
 	{
-        void Show(String a);
-        void Dismiss();
+        	void Show(String a);
+       		void Dismiss();
 	}
 	
 	[version(0x00000001)]
@@ -355,7 +361,7 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("2410129c-64a0-4b85-9e61-12caec38d6ef")]
 	interface IHostExperienceManager
 	{
-        void AllowSuspension(Boolean a);
+        	void AllowSuspension(Boolean a);
 	}
 	
 	[version(0x00000001)]
@@ -368,11 +374,11 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("6a9391e9-c8c9-4a1b-b31f-1f6f529ca573")]
 	interface IPenWorkspaceExperienceManager
 	{
-        void LaunchOrTogglePenWorkspace(PenWorkspaceVerb penWorkspaceVerb);
-        void LaunchOrTogglePenWorkspaceHome(Boolean value);
-        void LaunchOrTogglePenWorkspaceFromPoint(PenWorkspaceVerb penWorkspaceVerb, Windows.Foundation.Point b);
-        void BringToForeground();
-        void ClosePenWorkspace();
+        	void LaunchOrTogglePenWorkspace(PenWorkspaceVerb penWorkspaceVerb);
+        	void LaunchOrTogglePenWorkspaceHome(Boolean value);
+        	void LaunchOrTogglePenWorkspaceFromPoint(PenWorkspaceVerb penWorkspaceVerb, Windows.Foundation.Point b);
+        	void BringToForeground();
+        	void ClosePenWorkspace();
 	}
 	
 	[version(0x00000001)]
@@ -385,7 +391,7 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("984634c4-91f4-4a71-89ca-5baa258a1d7b")]
 	interface ISoftLandingExperienceManager
 	{
-        void FocusHotkeyInvoked();
+        	void FocusHotkeyInvoked();
 	}
 	
 	[version(0x00000001)]
@@ -398,23 +404,23 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("599db028-e1d3-433d-9f90-32468634d59e")]
 	interface IInputDialExperienceManager 
 	{
-        void StartDeviceListener();
-        void Register(UInt64 menuWindow, UInt64 inputSink, Windows.Foundation.EventHandler<Object> handler, UInt32 sectionId, EventRegistrationToken token);
-        void Unregister(UInt64 menuWindow, UInt32 sectionId, EventRegistrationToken token);
-        void AddCustomMenuItemWithKnownIcon(UInt64 menuWindow, UInt32 sectionId, UInt32 insertionIndex, String displayText, UInt32 itemId, UInt32 knownIcon);
-        void AddCustomMenuItemWithIcon(UInt64 menuWindow, UInt32 sectionId, UInt32 insertionIndex, String displayText, UInt32 itemId, Windows.Storage.Streams.IRandomAccessStreamReference icon);
-        void AddCustomMenuItemWithGlyph(UInt64 menuWindow, UInt32 sectionId, UInt32 insertionIndex, String displayText, String fontGlyph, String fontFamily, String fontFilePath, UInt32 itemId);
-        void RemoveCustomMenuItem(UInt64 menuWindow, UInt32 sectionId, UInt32 itemId);
-        void ClearCustomItems(UInt64 menuWindow, UInt32 sectionId);
-        void SetDefaultMenuItems(UInt64 menuWindow, IIterable<Windows.UI.Input.RadialControllerSystemMenuItemKind> b);
-        void SelectDefaultMenuItem(UInt64 menuWindow, UInt32 itemId, out Boolean isSelectionSuccessful);
-        void SelectPreviouslyActiveMenuItem(UInt64 menuWindow, out Boolean isSelectionSuccessful);
-        void SetSelectedMenuItem(UInt64 menuWindow, UInt32 sectionId, UInt32 itemId, Boolean __formal);
-        void GetSelectedMenuItem(UInt64 menuWindow, out UInt32 sectionId, out UInt32 itemId);
-        void InvokeDispatched(UInt64 inputSink);
-        void ResetDefaultMenuItems(UInt64 menuWindow);
-        void SuppressMenu(UInt64 menuWindow, Boolean isMenuSuppressed, UInt64 inputSink);
-        void SetApplicationController(UInt64 menuWindow, Boolean enabledState, UInt64 inputSink, Boolean controllerIsNotNull);
+        	void StartDeviceListener();
+        	void Register(UInt64 menuWindow, UInt64 inputSink, Windows.Foundation.EventHandler<Object> handler, UInt32 sectionId, EventRegistrationToken token);
+        	void Unregister(UInt64 menuWindow, UInt32 sectionId, EventRegistrationToken token);
+        	void AddCustomMenuItemWithKnownIcon(UInt64 menuWindow, UInt32 sectionId, UInt32 insertionIndex, String displayText, UInt32 itemId, UInt32 knownIcon);
+        	void AddCustomMenuItemWithIcon(UInt64 menuWindow, UInt32 sectionId, UInt32 insertionIndex, String displayText, UInt32 itemId, Windows.Storage.Streams.IRandomAccessStreamReference icon);
+        	void AddCustomMenuItemWithGlyph(UInt64 menuWindow, UInt32 sectionId, UInt32 insertionIndex, String displayText, String fontGlyph, String fontFamily, String fontFilePath, UInt32 itemId);
+        	void RemoveCustomMenuItem(UInt64 menuWindow, UInt32 sectionId, UInt32 itemId);
+        	void ClearCustomItems(UInt64 menuWindow, UInt32 sectionId);
+        	void SetDefaultMenuItems(UInt64 menuWindow, IIterable<Windows.UI.Input.RadialControllerSystemMenuItemKind> b);
+        	void SelectDefaultMenuItem(UInt64 menuWindow, UInt32 itemId, out Boolean isSelectionSuccessful);
+        	void SelectPreviouslyActiveMenuItem(UInt64 menuWindow, out Boolean isSelectionSuccessful);
+        	void SetSelectedMenuItem(UInt64 menuWindow, UInt32 sectionId, UInt32 itemId, Boolean __formal);
+        	void GetSelectedMenuItem(UInt64 menuWindow, out UInt32 sectionId, out UInt32 itemId);
+        	void InvokeDispatched(UInt64 inputSink);
+        	void ResetDefaultMenuItems(UInt64 menuWindow);
+        	void SuppressMenu(UInt64 menuWindow, Boolean isMenuSuppressed, UInt64 inputSink);
+        	void SetApplicationController(UInt64 menuWindow, Boolean enabledState, UInt64 inputSink, Boolean controllerIsNotNull);
 	}
 	
 	[version(0x00000001)]
@@ -427,18 +433,18 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("a40cce11-67ee-4e74-8c46-91edb265261c")]
 	interface ILockScreenExperienceManager
 	{
-        void Show();
-        void Hide();
-        void PositionApplication();
-        void SetDesiredPosition(Windows.Foundation.Rect a);
-        String GetApplicationId();
-        Boolean IsExperienceView(String a, UInt64 b);
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.LockScreenExperienceManager, int> ActivationFailed;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.LockScreenExperienceManager, Object> Shown;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.LockScreenExperienceManager, Object> ViewDestroyed;
-        void BringToForeground();
-        void DestroyView();
-        void TerminateIfNecessary();
+        	void Show();
+        	void Hide();
+        	void PositionApplication();
+        	void SetDesiredPosition(Windows.Foundation.Rect a);
+        	String GetApplicationId();
+        	Boolean IsExperienceView(String a, UInt64 b);
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.LockScreenExperienceManager, int> ActivationFailed;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.LockScreenExperienceManager, Object> Shown;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.LockScreenExperienceManager, Object> ViewDestroyed;
+        	void BringToForeground();
+        	void DestroyView();
+        	void TerminateIfNecessary();
 	}
 	
 	[version(0x00000001)]
@@ -451,8 +457,8 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("7154c95d-c519-49bd-a97e-645bbfabe111")]
 	interface ITrayMtcUvcFlyoutExperienceManager
 	{
-        void ShowFlyout(Windows.Foundation.Rect trayItemRect);
-        void HideFlyout();
+        	void ShowFlyout(Windows.Foundation.Rect trayItemRect);
+        	void HideFlyout();
 	}
 	
 	[version(0x00000001)]
@@ -465,30 +471,30 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("c9ddc674-b44b-4c67-9d79-2b237d9be05a")]
 	interface INetworkFlyoutExperienceManager
 	{
-        void ShowFlyout(Windows.Foundation.Rect trayItemRect, UInt64 b);
-        void HideFlyout();
+        	void ShowFlyout(Windows.Foundation.Rect trayItemRect, UInt64 b);
+        	void HideFlyout();
 	}
 	
 	[version(0x00000001)]
 	[uuid("E44F17E6-AB85-409C-8D01-17D74BEC150E")]
 	interface INetworkFlyoutExperienceManager18362
 	{
-        void ShowFlyout(Windows.Foundation.Rect trayItemRect);
-        void HideFlyout();
+        	void ShowFlyout(Windows.Foundation.Rect trayItemRect);
+        	void HideFlyout();
 	}
 	
 	[version(0x00000001)]
 	[uuid("ea565573-2887-4dcf-a6f7-4b52b8098df9")]
 	interface IMiracastBannerExperienceManager
 	{
-        void Initialize();
-        void ShowFlyout();
-        void HideFlyout();
-        void DelayedDestroyFlyout();
-        void DestroyFlyout();
-        void SetPinned(Boolean fIsPinned);
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.MiracastBannerExperienceManager, Object> Dismissed;
-        event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.MiracastBannerExperienceManager, Windows.Internal.Shell.Experience.IMiracastBannerResizeEventArgs> Resized;
+        	void Initialize();
+        	void ShowFlyout();
+        	void HideFlyout();
+        	void DelayedDestroyFlyout();
+        	void DestroyFlyout();
+        	void SetPinned(Boolean fIsPinned);
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.MiracastBannerExperienceManager, Object> Dismissed;
+        	event Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.Experience.MiracastBannerExperienceManager, Windows.Internal.Shell.Experience.IMiracastBannerResizeEventArgs> Resized;
 	}
 	
 	[version(0x00000001)]
@@ -593,15 +599,15 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("d7756afb-9b2b-4f00-9229-88209b0e8953")]
 	interface IMiracastBannerResizeEventArgs
 	{
-        Boolean CrossedMinimumThreshold { get; };
-        Boolean ButtonsMinimized { get; };
+        	Boolean CrossedMinimumThreshold { get; };
+        	Boolean ButtonsMinimized { get; };
 	}
 		
 	[version(0x00000001)]
 	[uuid("afe9aba4-877b-44b7-b9cb-1d0c97c6b204")]
 	interface IJumpViewExperienceEventArgs
 	{
-		String Unknown();
+		String Params { get; };
 	}
 	
 	[version(0x00000001)]
@@ -614,14 +620,14 @@ namespace Windows.Internal.Shell.Experience
 	[uuid("9697311c-768a-4cd5-9b37-049855339820")]
 	interface ICortanaShownEventArgs
 	{
-		Object Unknown(); //struct of something
+		Windows.Foundation.Rect RectInCortanaVisibleMonitor { get; };
 	}
 	
 	[version(0x00000001)]
 	[uuid("b0f15396-8df4-4167-b062-b2c66f34efbb")]
 	interface IFocusNavigateEventArgs
 	{
-		FocusNavigateDirection Unknown();
+		FocusNavigateDirection Direction { get; };
 	}
 	
 	[version(0x00000001)]
@@ -638,12 +644,12 @@ namespace Windows.Internal.Shell.Share
 	[uuid("bd8defd0-d961-4f83-8e79-a0f50c52c63c")]
 	interface IShareExperienceCallbacks
 	{
-		void Unknown1();
-		void Unknown2(Object shareAppExtension); //Windows::ApplicationModel::Internal::DataTransfer::IShareAppExtension
-		void Unknown3(Object shareProvider); //Windows::ApplicationModel::DataTransfer::IShareProvider
-		void Unknown4();
-		void Unknown5(String str);
-		void Unknown6(Windows.System.RemoteSystems.RemoteSystem remoteSystem);
+		void OnShareExperienceDismissed();
+		void OnAppExtensionSelected(Object shareAppExtension); //Windows::ApplicationModel::Internal::DataTransfer::IShareAppExtension
+		void OnShareProviderSelected(Object shareProvider); //Windows::ApplicationModel::DataTransfer::IShareProvider
+		void OnCopyToClipboardSelected();
+		void OnContactSelected(String str);
+		void OnDeviceSelected(Windows.System.RemoteSystems.RemoteSystem remoteSystem);
 	}
 	
 	[version(0x00000001)]
@@ -669,14 +675,14 @@ namespace Windows.Internal.Shell.ModalExperience
 	[uuid("faacf24c-7de0-4ea3-9d2a-0dcc7475e219")]
 	interface IModalWindowExperienceManager
 	{
-        void ShowForLaunch(String appUserModelID, String launchArguments, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions experienceCustomizationProperties, UInt32 parentWindowInstanceID, Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.ModalExperience.IModalWindowExperienceManager, Windows.Internal.Shell.ModalExperience.ModalExperienceEventArgs> eventHandler, EventRegistrationToken experienceToken);
-        void ShowForContractByAppID(String appUserModelID, String contractID, Object activatedEventArgs, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions experienceCustomizationProperties, UInt32 parentWindowInstanceID, Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.ModalExperience.IModalWindowExperienceManager, Windows.Internal.Shell.ModalExperience.ModalExperienceEventArgs> eventHandler, EventRegistrationToken experienceToken);
-        void ShowForContractWithPlugin(String appUserModelID, String extensionID, String contractID, Guid activationEventArgumentFactoryId, Object activationEventArgumentContext, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions experienceCustomizationProperties, UInt32 parentWindowInstanceID, Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.ModalExperience.IModalWindowExperienceManager, Windows.Internal.Shell.ModalExperience.ModalExperienceEventArgs> eventHandler, EventRegistrationToken experienceToken);
-        void ChangeModalExperienceProperties(EventRegistrationToken experienceToken, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions customizationProperties);
-        void UnregisterFromModalExperienceEvents(EventRegistrationToken experienceToken);
-        void Dismiss(EventRegistrationToken experienceToken);
-        void GetExistingExperienceForOwnerWindow(UInt32 parentWindowInstanceID, out EventRegistrationToken experienceToken);
-        void ShowExperience(EventRegistrationToken experienceToken);
+        	void ShowForLaunch(String appUserModelID, String launchArguments, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions experienceCustomizationProperties, UInt32 parentWindowInstanceID, Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.ModalExperience.IModalWindowExperienceManager, Windows.Internal.Shell.ModalExperience.ModalExperienceEventArgs> eventHandler, EventRegistrationToken experienceToken);
+        	void ShowForContractByAppID(String appUserModelID, String contractID, Object activatedEventArgs, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions experienceCustomizationProperties, UInt32 parentWindowInstanceID, Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.ModalExperience.IModalWindowExperienceManager, Windows.Internal.Shell.ModalExperience.ModalExperienceEventArgs> eventHandler, EventRegistrationToken experienceToken);
+        	void ShowForContractWithPlugin(String appUserModelID, String extensionID, String contractID, Guid activationEventArgumentFactoryId, Object activationEventArgumentContext, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions experienceCustomizationProperties, UInt32 parentWindowInstanceID, Windows.Foundation.TypedEventHandler<Windows.Internal.Shell.ModalExperience.IModalWindowExperienceManager, Windows.Internal.Shell.ModalExperience.ModalExperienceEventArgs> eventHandler, EventRegistrationToken experienceToken);
+        	void ChangeModalExperienceProperties(EventRegistrationToken experienceToken, Windows.Internal.Shell.ModalExperience.ModalExperienceDefaultOptions customizationProperties);
+        	void UnregisterFromModalExperienceEvents(EventRegistrationToken experienceToken);
+        	void Dismiss(EventRegistrationToken experienceToken);
+       		void GetExistingExperienceForOwnerWindow(UInt32 parentWindowInstanceID, out EventRegistrationToken experienceToken);
+        	void ShowExperience(EventRegistrationToken experienceToken);
 	}
 	
 	[version(0x00000001)]
@@ -703,9 +709,9 @@ namespace Windows.Internal.Shell.ModalExperience
 	[uuid("64ea1e5c-e838-43eb-bdde-09bc5aee78c0")]
 	interface IModalExperienceEventArgs
 	{
-        EventRegistrationToken ExperienceID { get; };
-        UInt32 ProcessId { get; };
-        ModalExperienceViewState GetState { get; };
+        	EventRegistrationToken ExperienceID { get; };
+        	UInt32 ProcessId { get; };
+        	ModalExperienceViewState GetState { get; };
 	}
 	
 	[version(0x00000001)]
@@ -721,15 +727,15 @@ namespace Windows.Internal.RetailDemo
 	[uuid("c83ec4e0-068f-4a90-a1c7-20841a08f99f")]
 	interface IRetailDemoExperienceManager
 	{
-        void Show();
-        void Hide();
-        void Close();
-        void Dock(Int32 a, Int32 b, Int32 c, Int32 d);
-        void Float(Int32 a, Int32 b, Int32 c, Int32 d);
-        void GetReservedSpace(Int32 a, Int64 b, Int64 c, Int64 d);
-        void SetTopmost(Int32 a);
-        void SetWindowBand(Int32 a);
-        void LaunchApplication(String a, String b, String c);
+        	void Show();
+        	void Hide();
+        	void Close();
+        	void Dock(Int32 a, Int32 b, Int32 c, Int32 d);
+        	void Float(Int32 a, Int32 b, Int32 c, Int32 d);
+        	void GetReservedSpace(Int32 a, Int64 b, Int64 c, Int64 d);
+        	void SetTopmost(Int32 a);
+        	void SetWindowBand(Int32 a);
+        	void LaunchApplication(String a, String b, String c);
 	}
 	
 	[version(0x00000001)]
