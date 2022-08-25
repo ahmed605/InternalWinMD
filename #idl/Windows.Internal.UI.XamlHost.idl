@@ -77,9 +77,8 @@ namespace Windows.Internal.UI.XAMLHost
 	}
 	
 	//use make for this
-	//UNKNOWN UUID
 	[contract(InternalREApiContract, 1.0)]
-	[uuid(b96ba785-0e10-4a12-96d5-f4a22934a5b6)]
+	[uuid(a126f23a-20e7-4fe5-8b88-33f7cffb7579)]
 	interface IDispatchableTaskWithContext
 	{
 		HRESULT Dispatch([in] IInspectable* context);
