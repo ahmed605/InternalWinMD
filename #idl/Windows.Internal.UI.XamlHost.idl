@@ -45,6 +45,13 @@ namespace Windows.Internal.UI.XAMLHost
 		float CloseButtonWidth;
 		float IconWidth;
 	};
+	
+	[contract(InternalREApiContract, 1.0)]
+	[uuid(1C35E215-859E-41A3-922B-303B8699A29D)]
+	interface IXamlRuntimeSite
+	{
+		//empty
+	}
 
 
 	//use make for this
@@ -58,7 +65,7 @@ namespace Windows.Internal.UI.XAMLHost
 		[propget] HRESULT ApplicationResourcesUri([out] [retval] HSTRING* value);
 		[propget] HRESULT RootUIElement([out] [retval] Windows.UI.Xaml.UIElement** value);
 		[propget] HRESULT RootViewModel([out] [retval] IInspectable** value);
-		[propget] HRESULT XamlRuntimeSite([out] [retval] IInspectable** value); //Windows::UI::Xaml::Hosting::IXamlRuntimeSite
+		[propget] HRESULT XamlRuntimeSite([out] [retval] IXamlRuntimeSite** value); //Windows::UI::Xaml::Hosting::IXamlRuntimeSite
 		[propget] HRESULT Theme([out] [retval] Windows.UI.Xaml.ApplicationTheme* value);
 		[propget] HRESULT ViewConfig([out] [retval] Windows.Internal.UI.XAMLHost.ViewConfigFlags* retval);
 		[propget] HRESULT WindowZOrderBand([out] [retval] unsigned int* value);
@@ -74,6 +81,47 @@ namespace Windows.Internal.UI.XAMLHost
 		HRESULT GetViewPosition([in] unsigned int scaleFactor, [in] Windows.Foundation.Rect desiredSize, [out] [retval] Windows.Foundation.Rect *value);
 		HRESULT SetMergedResourceDictionary([in] IInspectable* resourceDictionary);
 		[propget] HRESULT get_AtlasSize([out] [retval] Windows.Foundation.Size* value);
+	}
+	
+	[contract(InternalREApiContract, 1.0)]
+	[uuid(c8b50ca8-eddd-4a04-a730-646a54223985)]
+	interface IViewDefinition18362
+	{
+		[propget] HRESULT WindowClassName([out] [retval] HSTRING* value);
+		[propget] HRESULT ResourceFileName([out] [retval] HSTRING* value);
+		[propget] HRESULT WindowTitleUri([out] [retval] HSTRING* value);
+		[propget] HRESULT ApplicationResourcesUri([out] [retval] HSTRING* value);
+		[propget] HRESULT RootUIElement([out] [retval] Windows.UI.Xaml.UIElement** value);
+		[propget] HRESULT RootViewModel([out] [retval] IInspectable** value);
+		[propget] HRESULT XamlRuntimeSite([out] [retval] IXamlRuntimeSite** value);
+		[propget] HRESULT XamlRuntimeSites([out] [retval] Windows.Foundation.Collections.IIterable<IXamlRuntimeSite*> ** value);
+		[propget] HRESULT Theme([out] [retval] Windows.UI.Xaml.ApplicationTheme* value);
+		[propget] HRESULT ViewConfig([out] [retval] Windows.Internal.UI.XAMLHost.ViewConfigFlags* retval);
+		[propget] HRESULT WindowZOrderBand([out] [retval] unsigned int* value);
+		[propget] HRESULT WindowStylesEx([out] [retval] unsigned int* value);
+		[propget] HRESULT ApplicationResources([out] [retval] IMapView<HSTRING, IInspectable *>** value);
+		[propget] HRESULT LangID([out] [retval] int* value); //unsigned __int16
+		[propget] HRESULT MinWindowSize([out] [retval] Windows.Foundation.Size* value);
+		[propget] HRESULT MaxWindowSize([out] [retval] Windows.Foundation.Size* value);
+		HRESULT GetTitleBarInfo([in] unsigned int scaleFactor, [out] [retval] Windows.Internal.UI.XAMLHost.TitleBarInfo* titleBar);
+		HRESULT UpdateTitleBarCloseButtonState([in] Windows.Internal.UI.XAMLHost.CloseButtonState newState);
+		HRESULT TitleBarClose();
+		HRESULT OnHighContrastChange();
+		HRESULT GetViewPosition([in] unsigned int scaleFactor, [in] Windows.Foundation.Rect desiredSize, [out] [retval] Windows.Foundation.Rect *value);
+		HRESULT SetMergedResourceDictionary([in] IInspectable* resourceDictionary);
+		[propget] HRESULT get_AtlasSize([out] [retval] Windows.Foundation.Size* value);
+		
+		//What are these???
+		HRESULT v_GetXAMLSite(GUID guid, void** ppv); //Will this syntax work?
+		HRESULT v_GetRootElement(Object obj, GUID guid, void** ppv); //Will this syntax work?
+		HRESULT v_GetRootViewModel(Object obj, GUID guid, void** ppv); //Will this syntax work?
+		HRESULT v_GetViewPosition([In] uint scaleFactor, [In] Windows.Foundation.Rect desiredSize, [out] [retval] Windows.Foundation.Rect *value);
+		HRESULT v_GetTitleBarInfo([in] unsigned int scaleFactor, [out] [retval] Windows.Internal.UI.XAMLHost.TitleBarInfo* titleBar);
+		HRESULT v_UpdateTitleBarCloseButtonState([in] Windows.Internal.UI.XAMLHost.CloseButtonState newState);
+		HRESULT v_TitleBarClose();
+		HRESULT v_GetTheme([out] [retval] Windows.UI.Xaml.ApplicationTheme* value);
+		HRESULT v_OnHighContrastChange();
+		HRESULT v_GetAtlasSize([out] [retval] Windows.Foundation.Size* value);
 	}
 	
 	//use make for this
